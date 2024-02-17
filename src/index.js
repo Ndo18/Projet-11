@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header';
 import Accueil from './components/pages/Accueil';
 import Footer from './components/Footer';
-// import './stylesPages/Accueil.css'
+import SignIn from './components/pages/SignIn';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,9 +16,9 @@ root.render(
     <Header />
       <Routes>
         <Route path='/' element={<Accueil />}/>
-        <Route path='' element /> {/* SignIn Page */}
+        <Route path='/Sign-In' element={<SignIn />} /> {/* SignIn Page */}
         <Route path='' element /> {/* Page connecté */}
-        <Route path='' element /> {/* SignIn Page */}
+        <Route path='*' element /> {/* Error */}
       </Routes>
     <Footer />
     </Router>

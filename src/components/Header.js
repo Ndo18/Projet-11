@@ -13,11 +13,10 @@ function Header() {
       />
     </NavLink>
     <div>
-      {/* <NavLink className="main-nav-item" to=""></NavLink> */}
-      <a class="main-nav-item" href="./sign-in.html">
-        <i class="fa fa-user-circle"></i>
+      <NavLink className="main-nav-item" to="/Sign-In">
+        <i className="fa fa-user-circle"></i>
         Sign In
-      </a>
+      </NavLink>
     </div>
 </nav>
     )
