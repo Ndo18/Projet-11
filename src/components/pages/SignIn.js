@@ -1,25 +1,44 @@
 import { useRef } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../../actions/login.action"
+import { useNavigate } from "react-router-dom"
+// import userReducer from "../../reducers/post.reducer"
 
 
 function SignIn() {
 
   const form = useRef()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const token = useSelector((state) => state.loginReducer.token)
+
+  // useEffect(() => {
+  //   if (token) {
+  //     navigate('/user')
+  //   }
+  // }, [token, navigate])
+
   const handleform = async(e) => {
     e.preventDefault()
-
-    console.log(form.current);
+    navigate('/user')
+    
+    console.log(token);
+    // console.log(form.current);
 
     const postData = {
-      'Content-type': 'application/json',
       email: form.current[0].value,
       password: form.current[1].value,
     }
 
+    // dispatch(userReducer())
     dispatch(loginUser(postData))
 
+    // {token
+    //   ? navigate('/user')
+    //   : console.log("erreur");
+    // }
+    
+    
   }
     return(
        <>
@@ -33,8 +52,8 @@ function SignIn() {
             <input type="text" id="username" />
           </div>
           <div className="input-wrapper">
-            <label htmlFor="password">Password</label
-            ><input type="password" id="password" />
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
