@@ -1,28 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-// import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Header from './components/Header';
-import Accueil from './components/pages/Accueil';
-import Footer from './components/Footer';
-import SignIn from './components/pages/SignIn';
+
+//REDUX
+import { Provider } from 'react-redux';
+import { configureStore } from "@reduxjs/toolkit"
+import rootReducer from './reducers'
+
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: true,
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-    <Header />
-      <Routes>
-        <Route path='/' element={<Accueil />}/>
-        <Route path='/Sign-In' element={<SignIn />} /> {/* SignIn Page */}
-        <Route path='' element /> {/* Page connecté */}
-        <Route path='*' element /> {/* Error */}
-      </Routes>
-    <Footer />
-    </Router>
-    {/* <App /> */}
+    <Provider store={store}>
+    <App />
+    </Provider>
   </React.StrictMode>
 );
 
