@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { loginUser } from "../../actions/login.action"
+import { loginUser } from "../../actions/actions"
 import { useNavigate } from "react-router-dom"
 // import userReducer from "../../reducers/post.reducer"
 

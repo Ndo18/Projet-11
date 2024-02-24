@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { profileUser } from "../../actions/login.action"
+import { profileUser } from "../../actions/actions"
 // import { store } from "../../store";
 
 
@@ -7,18 +7,20 @@ import { profileUser } from "../../actions/login.action"
 function User (){
     const dispatch = useDispatch()
     const token = useSelector((state) => state.loginReducer.token)
-    console.log(token);
-
-    dispatch(profileUser(token))
-
-    // store.dispatch(profileUser(token))
+    const firstName = useSelector((state) => state.userReducer.userInfos.firstName)
+    const lastName = useSelector((state) => state.userReducer.userInfos.lastName)
     
+    dispatch(profileUser({
+        Authorization: `Bearer ${token}`
+    }));    
+
+
     return(
         <>
              <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
-        <button className="edit-button">Edit Name</button>
+        <h1>Welcome back<br />{firstName} {lastName} !</h1>
+        <button className="edit-button" onClick={e => {}}>Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">

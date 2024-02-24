@@ -1,0 +1,30 @@
+import axios from "axios"
+
+export const LOGIN = "LOGIN"
+export const PROFIL_USER = "PROFIL_USER"
+export const EDIT_USER = "EDIT_USER"
+
+export const loginUser = (data) => {
+    return (dispatch) => {
+        return axios.post("http://localhost:3001/api/v1/user/login", data).then((res) => {
+            dispatch({type: LOGIN, payload: res.data.body.token })
+        })
+    }
+}
+
+export const profileUser = (headers, data) => {
+    return (dispatch) => {
+        return axios.post("http://localhost:3001/api/v1/user/profile", data, { headers }).then((res) => {
+            dispatch({type: PROFIL_USER, payload: res.data.body})
+        })
+    }
+}
+
+export const editUser = (data) => {
+    return (dispatch) => {
+        return axios.put("http://localhost:3001/api/v1/user/profile", data).then((res) => {
+            dispatch({type: EDIT_USER, payload: res.data })
+            console.log("hhd", res)
+        })
+    }
+}
