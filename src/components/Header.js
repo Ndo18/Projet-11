@@ -8,8 +8,7 @@ import { persistor } from '../store'
 function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const token = useSelector((state) => state.loginReducer.token)
-  const user = useSelector((state) => state.userReducer)
+  const userInfos = useSelector((state) => state.userReducer.userInfos)
 
   //Deconnexion
   const handlesignOut = async(e) =>{
@@ -33,12 +32,12 @@ function Header() {
     </NavLink>
     <div>
     
-      { !token && <NavLink className="main-nav-item" to="/Sign-In">
+      { !userInfos && <NavLink className="main-nav-item" to="/Sign-In">
         <i className="fa fa-user-circle"></i>
         Sign In
       </NavLink>}
-      { token &&<NavLink to='/' onClick={e => handlesignOut(e)}>
-      <NavLink id='RouterNavLink' to='/user'><i className="fa fa-user-circle"></i><span>{user.userName}</span></NavLink>
+      { userInfos &&<NavLink to='/' onClick={e => handlesignOut(e)}>
+      <NavLink id='RouterNavLink' to='/user'><i className="fa fa-user-circle"></i>{userInfos.userName}</NavLink>
           <i className="fa fa-sign-out"></i>
            Sign Out
         </NavLink>}

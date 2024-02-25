@@ -1,7 +1,7 @@
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { loginUser } from "../../actions/actions"
+import { loginUser, profileUser } from "../../actions/actions"
 
 
 function SignIn() {
@@ -9,28 +9,36 @@ function SignIn() {
   const form = useRef()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
   const token = useSelector((state) => state.loginReducer.token)
-
-  // useEffect(() => {
-  //   if (token) {
-  //     navigate('/user')
-  //   }
-  // }, [token, navigate])
+  const userInfos = useSelector((state) => state.userReducer.userInfos)
 
   const handleform = async(e) => {
+
     e.preventDefault()
-    navigate('/user')
-    
-    console.log(token);
 
     const postData = {
       email: form.current[0].value,
       password: form.current[1].value,
     }
 
+    setLoading(true)
+
     dispatch(loginUser(postData))
-    
+    setLoading(false)
   }
+
+  useEffect(() => {
+    if(token){
+      dispatch(profileUser({
+          Authorization: `Bearer ${token}`
+      }));
+      if(userInfos){
+        navigate('/user')
+      }
+    }
+  },[dispatch, token, userInfos, navigate])
+
     return(
        <>
         <main className="main bg-dark">
@@ -50,6 +58,11 @@ function SignIn() {
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               >Remember me</label>
           </div>
+          {loading ? (
+            <div>loading...</div>
+          ) : (
+            <div>test</div>
+          )}
           {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
           <input type="submit" className="sign-in-button" value="Sign In"/>
           {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
