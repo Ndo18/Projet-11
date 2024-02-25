@@ -1,8 +1,7 @@
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { loginUser } from "../../actions/actions"
 import { useNavigate } from "react-router-dom"
-// import userReducer from "../../reducers/post.reducer"
+import { loginUser } from "../../actions/actions"
 
 
 function SignIn() {
@@ -23,21 +22,13 @@ function SignIn() {
     navigate('/user')
     
     console.log(token);
-    // console.log(form.current);
 
     const postData = {
       email: form.current[0].value,
       password: form.current[1].value,
     }
 
-    // dispatch(userReducer())
     dispatch(loginUser(postData))
-
-    // {token
-    //   ? navigate('/user')
-    //   : console.log("erreur");
-    // }
-    
     
   }
     return(

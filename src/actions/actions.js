@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export const LOGIN = "LOGIN"
+export const LOGOUT_USER = "LOGOUT_USER"
 export const PROFIL_USER = "PROFIL_USER"
 export const EDIT_USER = "EDIT_USER"
 
@@ -20,11 +21,14 @@ export const profileUser = (headers, data) => {
     }
 }
 
-export const editUser = (data) => {
+export const editUser = (headers, data) => {
     return (dispatch) => {
-        return axios.put("http://localhost:3001/api/v1/user/profile", data).then((res) => {
-            dispatch({type: EDIT_USER, payload: res.data })
-            console.log("hhd", res)
+        return axios.put("http://localhost:3001/api/v1/user/profile", data, { headers }).then((res) => {
+            dispatch({type: EDIT_USER, payload: res})
         })
     }
 }
+
+export const logoutUser = () => ({
+    type : LOGOUT_USER
+})

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { profileUser } from "../../actions/actions"
+import { useEffect } from "react"
 // import { store } from "../../store";
 
 
@@ -7,20 +8,23 @@ import { profileUser } from "../../actions/actions"
 function User (){
     const dispatch = useDispatch()
     const token = useSelector((state) => state.loginReducer.token)
-    const firstName = useSelector((state) => state.userReducer.userInfos.firstName)
-    const lastName = useSelector((state) => state.userReducer.userInfos.lastName)
-    
-    dispatch(profileUser({
-        Authorization: `Bearer ${token}`
-    }));    
+    const user = useSelector((state) => state.userReducer)
+
+    useEffect(() => {
+      if(token){
+        dispatch(profileUser({
+            Authorization: `Bearer ${token}`
+        }));
+      }
+    },[dispatch, token])
 
 
     return(
         <>
-             <main className="main bg-dark">
+    <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />{firstName} {lastName} !</h1>
-        <button className="edit-button" onClick={e => {}}>Edit Name</button>
+        <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>
+        <button className="edit-button" onClick={e => {}}>Edit username</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
