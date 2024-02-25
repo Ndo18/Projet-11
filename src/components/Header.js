@@ -4,22 +4,34 @@ import './stylesComponent/Header.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../actions/actions'
 import { persistor } from '../store'
+import { useState } from 'react'
 
 function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userInfos = useSelector((state) => state.userReducer.userInfos)
+  // const [isLoggedOut, setIsLoggedOut] = useState(false)
 
+  
   //Deconnexion
   const handlesignOut = async(e) =>{
     e.preventDefault()
     
     dispatch(logoutUser())
-
+    
     persistor.purge()
-
+    
+    // setIsLoggedOut(true)
+    
     navigate('/')
   }
+  
+  // if (isLoggedOut){
+  // }
+
+  // useEffect(()=>{
+  //   setIsLoggedOut(false)
+  // },[])
 
     return (
 <nav className="main-nav">

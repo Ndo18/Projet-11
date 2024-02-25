@@ -1,17 +1,21 @@
 import { useSelector } from "react-redux"
+import { UsernameForm } from "../usernameForm"
+import { useState } from "react"
 
 function User (){
 
     const user = useSelector((state) => state.userReducer)
-
-    // const editUsername = 
+    const [isOpen, setIsOpen] = useState(false)
 
     return(
         <>
+      {isOpen && <UsernameForm/>}
     <main className="main bg-dark">
       <div className="header">
+      {/* {!isOpen && } */}
         <h1>Welcome back<br />{user.userInfos.firstName} {user.userInfos.lastName} !</h1>
-        <button className="edit-button" onClick={e => {}}>Edit username</button>
+        {/* {!isOpen &&} */}
+        <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit username</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">

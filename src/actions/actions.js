@@ -30,5 +30,5 @@ export const editUser = (headers, data) => {
 }
 
 export const logoutUser = () => ({
-    type : LOGOUT_USER
+    type : LOGOUT_USER, payload : null
 })
