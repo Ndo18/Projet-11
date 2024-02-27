@@ -23,12 +23,12 @@ export const profileUser = (headers, data) => {
 
 export const editUser = (headers, data) => {
     return (dispatch) => {
-        return axios.put("http://localhost:3001/api/v1/user/profile", data, { headers }).then((res) => {
-            dispatch({type: EDIT_USER, payload: res})
+        return axios.put(`http://localhost:3001/api/v1/user/profile/`,data, { headers }).then((res) => {
+            dispatch({type: EDIT_USER, payload: res.data.body})
         })
     }
 }
 
-export const logoutUser = () => ({
-    type : LOGOUT_USER, payload : null
-})
+// export const logoutUser = () => ({
+//     type : LOGOUT_USER, payload : null
+// })

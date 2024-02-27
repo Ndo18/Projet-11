@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
-import { UsernameForm } from "../usernameForm"
 import { useState } from "react"
+import { UsernameForm } from "../UsernameForm"
 
 function User (){
 
@@ -9,11 +9,11 @@ function User (){
 
     return(
         <>
-      {isOpen && <UsernameForm/>}
+      {isOpen && <UsernameForm />}
     <main className="main bg-dark">
       <div className="header">
       {/* {!isOpen && } */}
-        <h1>Welcome back<br />{user.userInfos.firstName} {user.userInfos.lastName} !</h1>
+        <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>
         {/* {!isOpen &&} */}
         <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit username</button>
       </div>

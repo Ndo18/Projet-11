@@ -1,4 +1,4 @@
-import { PROFIL_USER } from "../actions/actions"
+import { EDIT_USER, PROFIL_USER } from "../actions/actions"
 
 
 const initialState = {}
@@ -6,7 +6,9 @@ const initialState = {}
 export default function userReducer(state = initialState, action) {
     switch(action.type){
         case PROFIL_USER:
-            return {userInfos: action.payload}
+            return {...state, ...action.payload}
+        case EDIT_USER:
+            return {...state, ...action.payload.userName}
         default:
             return state
             }

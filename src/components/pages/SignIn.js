@@ -11,7 +11,7 @@ function SignIn() {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const token = useSelector((state) => state.loginReducer.token)
-  const userInfos = useSelector((state) => state.userReducer.userInfos)
+  const userInfos = useSelector((state) => state.userReducer)
 
   const handleform = async(e) => {
 
