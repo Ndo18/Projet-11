@@ -9,23 +9,26 @@ function SignIn() {
   const form = useRef()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
   const token = useSelector((state) => state.loginReducer.token)
   const userInfos = useSelector((state) => state.userReducer)
+  const [error, setError] = useState(null)
 
   const handleform = async(e) => {
-
     e.preventDefault()
+    
+    const email = form.current[0].value
+    const password = form.current[1].value
 
+    if ((email === "tony@stark.com" && password === "password123") ||
+    (email === "steve@rogers.com" && password === "password456")) {
     const postData = {
-      email: form.current[0].value,
-      password: form.current[1].value,
-    }
-
-    setLoading(true)
-
+    email: email,
+    password: password,
+  }
     dispatch(loginUser(postData))
-    setLoading(false)
+  } else {
+    setError("Invalid email or password")
+  }
   }
 
   useEffect(() => {
@@ -58,12 +61,8 @@ function SignIn() {
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               >Remember me</label>
           </div>
-          {loading ? (
-            <div>loading...</div>
-          ) : (
-            <div>test</div>
-          )}
           {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
+          {error && <div className="error">{error}</div>}
           <input type="submit" className="sign-in-button" value="Sign In"/>
           {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
           {/* <!-- <button className="sign-in-button">Sign In</button> --> */}

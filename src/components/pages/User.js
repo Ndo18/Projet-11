@@ -1,19 +1,27 @@
 import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { UsernameForm } from "../UsernameForm"
+import { useNavigate } from "react-router-dom"
 
 function User (){
 
     const user = useSelector((state) => state.userReducer)
+    const login = useSelector((state) => state.loginReducer)
     const [isOpen, setIsOpen] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+      if(!login.token){
+        navigate('/Sign-In')
+      }
+    },[])
 
     return(
         <>
       {isOpen && <UsernameForm />}
     <main className="main bg-dark">
       <div className="header">
-      {/* {!isOpen && } */}
-        <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>
+      {!isOpen && <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>}
         {/* {!isOpen &&} */}
         <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit username</button>
       </div>

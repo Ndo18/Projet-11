@@ -14,18 +14,12 @@ export function UsernameForm () {
         e.preventDefault()
 
         const postData = {
-            id: user.id,
             userName: editUsername,
         }
 
-        console.log(user.id);
-
-        console.log("data",postData);
-
         dispatch(editUser({
-            Authorization: `Bearer ${token}`,
-            postData
-        }))
+            Authorization: `Bearer ${token}`
+        }, postData))
     }
 
     return (
@@ -38,9 +32,8 @@ export function UsernameForm () {
             <input type="text" id="firstname" defaultValue={user.firstName} disabled/>
             <label htmlFor="lastname">Last name:</label>
             <input type="text" id="lastname" defaultValue={user.lastName} disabled/>
-            <input type="submit" value="Save"></input>
-            {/* <button>Save</button>
-            <button>Cancel</button> */}
+            <input type="submit" value="Save" />
+            {/* <button>Cancel</button> */}
         </form>
         </>
     )
