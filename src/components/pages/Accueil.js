@@ -1,4 +1,3 @@
-import './stylesPages/Accueil.css'
 
 function Accueil() {
 return(

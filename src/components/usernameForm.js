@@ -1,6 +1,8 @@
 import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { editUser } from "../actions/actions"
+import '../style/Websitestyle.css'
+import './compenentStyle/UsernameForm.css'
 
 export function UsernameForm ({children}) {
 
@@ -25,15 +27,17 @@ export function UsernameForm ({children}) {
     return (
         <>
             <h1>Edit user info</h1>
-        <form ref={form} onSubmit={e => handleEdit(e)}>
+        <form ref={form} onSubmit={e => handleEdit(e)} className="Form">
             <label htmlFor="username">User name:</label>
             <input type="text" id="username" onChange={e => seteditUsername(e.target.value)} />
             <label htmlFor="firstname">First name:</label>
-            <input type="text" id="firstname" defaultValue={user.firstName} disabled/>
+            <input type="text" id="firstname" className="disabled" defaultValue={user.firstName} disabled/>
             <label htmlFor="lastname">Last name:</label>
-            <input type="text" id="lastname" defaultValue={user.lastName} disabled/>
-            <input type="submit" value="Save" />
+            <input type="text" id="lastname" className="disabled" defaultValue={user.lastName} disabled/>
+            <div>
+            <input type="submit" value="Save" className="edit-button"/>
             {children}
+            </div>
         </form>
         </>
     )

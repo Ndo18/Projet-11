@@ -4,6 +4,7 @@ import Accueil from './components/pages/Accueil';
 import Footer from './components/Footer';
 import SignIn from './components/pages/SignIn';
 import User from './components/pages/User';
+import './style/Websitestyle.css'
 
 function App() {
   return (

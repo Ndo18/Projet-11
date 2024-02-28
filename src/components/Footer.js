@@ -1,4 +1,4 @@
-import './stylesComponent/Footer.css'
+import '../style/Websitestyle.css'
 
 function Footer() {
     return (

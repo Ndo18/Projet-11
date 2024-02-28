@@ -26,12 +26,12 @@ function User (){
         <>
       {isOpen && <UsernameForm>
         {/* Ajout du bouton CANCEL pour la fermeture du formulaire */}
-        <button type="button" onClick={handleCancel}>Cancel</button>
+        <button type="button" onClick={handleCancel} className="edit-button">Cancel</button>
         </UsernameForm>}
     <main className="main bg-dark">
       <div className="header">
       {!isOpen && <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>}
-      {!isOpen && <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit username</button>}
+      {!isOpen && <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit User name</button>}
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">

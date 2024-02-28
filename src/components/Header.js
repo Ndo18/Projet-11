@@ -1,6 +1,6 @@
 import logoArgentbank from '../assets/img/argentBankLogo.png'
 import { NavLink, useNavigate } from 'react-router-dom'
-import './stylesComponent/Header.css'
+import '../style/Websitestyle.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../actions/actions'
 import { persistor } from '../store'
@@ -10,8 +10,6 @@ function Header() {
   const navigate = useNavigate()
   const userInfos = useSelector((state) => state.userReducer)
   const token = useSelector((state) => state.loginReducer.token)
-
-
   
   //Deconnexion
   const handlesignOut = async(e) =>{
