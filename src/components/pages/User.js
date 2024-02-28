@@ -14,16 +14,24 @@ function User (){
       if(!login.token){
         navigate('/Sign-In')
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
+
+    const handleCancel = () => {
+      // Fermer le formulaire
+      setIsOpen(false);
+  };
 
     return(
         <>
-      {isOpen && <UsernameForm />}
+      {isOpen && <UsernameForm>
+        {/* Ajout du bouton CANCEL pour la fermeture du formulaire */}
+        <button type="button" onClick={handleCancel}>Cancel</button>
+        </UsernameForm>}
     <main className="main bg-dark">
       <div className="header">
       {!isOpen && <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>}
-        {/* {!isOpen &&} */}
-        <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit username</button>
+      {!isOpen && <button className="edit-button" onClick={() => setIsOpen(!isOpen)}>Edit username</button>}
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">

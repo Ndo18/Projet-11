@@ -24,7 +24,6 @@ export const profileUser = (headers, data) => {
 export const editUser = (headers, data) => {
     return (dispatch) => {
         return axios.put(`http://localhost:3001/api/v1/user/profile/`,data, { headers }).then((res) => {
-            console.log("test", data);
             dispatch({type: EDIT_USER, payload: data})
         })
     }

@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { editUser } from "../actions/actions"
 
-export function UsernameForm () {
+export function UsernameForm ({children}) {
 
     const user = useSelector((state) => state.userReducer)
     const form = useRef()
@@ -33,7 +33,7 @@ export function UsernameForm () {
             <label htmlFor="lastname">Last name:</label>
             <input type="text" id="lastname" defaultValue={user.lastName} disabled/>
             <input type="submit" value="Save" />
-            {/* <button>Cancel</button> */}
+            {children}
         </form>
         </>
     )
