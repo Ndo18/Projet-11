@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { loginUser, profileUser } from "../../actions/actions"
+import './pageStyle/SignIn.css'
 
 
 function SignIn() {
@@ -61,12 +62,8 @@ function SignIn() {
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               >Remember me</label>
           </div>
-          {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
           {error && <div className="error">{error}</div>}
           <input type="submit" className="sign-in-button" value="Sign In"/>
-          {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-          {/* <!-- <button className="sign-in-button">Sign In</button> --> */}
-          {/* <!--  --> */}
         </form>
       </section>
     </main>

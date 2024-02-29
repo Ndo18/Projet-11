@@ -3,7 +3,6 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, } from 'redux-persist'
 import loginReducer from './reducers/post.reducer'
 import userReducer from "./reducers/user.reducer"
-import logoutReducer from "./reducers/logout.reducer"
 import persistStore from "redux-persist/es/persistStore"
 
 
@@ -16,7 +15,6 @@ const persistConfig = {
 const reducer = combineReducers({
     userReducer,
     loginReducer,
-    logoutReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer )

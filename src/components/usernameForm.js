@@ -29,7 +29,7 @@ export function UsernameForm ({children}) {
             <h1>Edit user info</h1>
         <form ref={form} onSubmit={e => handleEdit(e)} className="Form">
             <label htmlFor="username">User name:</label>
-            <input type="text" id="username" onChange={e => seteditUsername(e.target.value)} />
+            <input type="text" id="username" placeholder={user.userName} onChange={e => seteditUsername(e.target.value)} />
             <label htmlFor="firstname">First name:</label>
             <input type="text" id="firstname" className="disabled" defaultValue={user.firstName} disabled/>
             <label htmlFor="lastname">Last name:</label>
