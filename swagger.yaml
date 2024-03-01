@@ -69,7 +69,7 @@ paths:
        - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -94,36 +94,45 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/{accountId}:
+  /user/transactions:
     get:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Get User Account by ID
-      description: Retrieve user account details by account ID
+      summary: Get Transactions by User
+      description: Retrieve transactions associated with a user by user ID
       parameters:
-        - name: accountId
-          in: path
-          description: ID of the user account to retrieve
+        - name: userId
+          in: query
+          description: ID of the user to retrieve transactions for
+          required: true
+          type: string
+        - name: Authorization
+          in: header
+          description: Token used for authentication and authorization
           required: true
           type: string
       produces:
         - application/json
       responses:
         '200':
-          description: User account details retrieved successfully
+          description: Transactions retrieved successfully
           schema:
-            $ref: '#/definitions/User'
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '401':
+          description: Unauthorized access
         '404':
-          description: User account not found
+          description: User not found or no transactions found
         '500':
           description: Internal Server Error
 
@@ -153,54 +162,14 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-
-  /transactions/{accountId}:
-    parameters:
-      - name: accountId
-        in: path
-        description: ID of the account to retrieve transactions for
-        required: true
-        type: string
-    get:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Get Transactions by Account ID
-      description: Retrieve transactions associated with a user account by account ID
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transactions retrieved successfully
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Transaction'
-        '404':
-          description: Account not found
-        '500':
-          description: Internal Server Error
-
-  /transactions/{accountId}/{transactionId}:
-    parameters:
-      - name: accountId
-        in: path
-        description: ID of the account associated with the transaction
-        required: true
-        type: string
-      - name: transactionId
-        in: path
-        description: ID of the transaction
-        required: true
-        type: string
+  /transactions/{transactionId}:
     put:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Update Transaction Category
-      description: Update the category of a transaction
+      summary: Update Transaction
+      description: Update details of an existing transaction
       parameters:
         - name: transactionId
           in: path
@@ -209,19 +178,28 @@ paths:
           type: string
         - in: body
           name: body
-          description: Updated transaction category
+          description: Updated transaction details
           required: true
           schema:
-            $ref: '#/definitions/TransactionCategory'
+            $ref: '#/definitions/Transaction'
+        - name: Authorization
+          in: header
+          description: Token used for authentication and authorization
+          required: true
+          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: Transaction category updated successfully
+          description: Transaction updated successfully
           schema:
             $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized access
         '404':
-          description: Transaction or Account not found
+          description: Transaction not found
         '500':
           description: Internal Server Error
 
@@ -238,11 +216,18 @@ paths:
           description: ID of the transaction to delete
           required: true
           type: string
+        - name: Authorization
+          in: header
+          description: Token used for authentication and authorization
+          required: true
+          type: string
       produces:
         - application/json
       responses:
         '204':
           description: Transaction deleted successfully
+        '401':
+          description: Unauthorized access
         '404':
           description: Transaction not found
         '500':
@@ -310,9 +295,9 @@ definitions:
       id:
         type: string
         description: Transaction ID
-      accountId:
+      userId:
         type: string
-        description: ID of the account associated with the transaction
+        description: ID of the user associated with the transaction
       amount:
         type: number
         description: Amount of the transaction
