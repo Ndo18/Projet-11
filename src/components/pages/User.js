@@ -24,7 +24,7 @@ function User (){
 
     return(
         <>
-      {isOpen && <UsernameForm>
+      {isOpen && <UsernameForm closeForm={handleCancel}>
         {/* Ajout du bouton CANCEL pour la fermeture du formulaire */}
         <button type="button" onClick={handleCancel} className="edit-button">Cancel</button>
         </UsernameForm>}

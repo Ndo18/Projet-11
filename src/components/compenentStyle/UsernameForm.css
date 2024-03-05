@@ -16,4 +16,11 @@
 }
 .Form .disabled {
   background-color: rgb(206, 206, 206);
+}
+.Form .editusername {
+  margin-top: 10px;
+  color: red;
+  border: 2px red solid;
+  padding: 10px;
+  background-color: rgb(254, 152, 152);
 }/*# sourceMappingURL=UsernameForm.css.map */

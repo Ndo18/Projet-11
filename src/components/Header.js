@@ -1,4 +1,4 @@
-import logoArgentbank from '../assets/img/argentBankLogo.png'
+import logoArgentbank from '../assets/img/argentBankLogo.webp'
 import { NavLink, useNavigate } from 'react-router-dom'
 import '../style/Websitestyle.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,28 +21,28 @@ function Header() {
     
     navigate('/')
   }
-
-    return (
-<nav className="main-nav">
-  <NavLink className="main-nav-logo" to="/">
-      <img
-        className="main-nav-logo-image"
-        src={logoArgentbank}
-        alt="Argent Bank Logo"
-      />
+  
+  return (
+    <nav className="main-nav">
+    <NavLink className="main-nav-logo" to="/">
+    <img
+    className="main-nav-logo-image"
+    src={logoArgentbank}
+    alt="Argent Bank Logo"
+    />
     </NavLink>
     <div>
-      { !token && <NavLink className="main-nav-item" to="/Sign-In">
-        <i className="fa fa-user-circle"></i>
-        Sign In
-      </NavLink>}
-      { token && <NavLink to='/user'><i className="fa fa-user-circle"></i>{userInfos.userName}</NavLink>}
-      { token &&<NavLink to='/' onClick={e => handlesignOut(e)}>
-          <i className="fa fa-sign-out"></i>
-           Sign Out
-        </NavLink>}
+    { !token && <NavLink className="main-nav-item" to="/Sign-In">
+    <i className="fa fa-user-circle"></i>
+    Sign In
+    </NavLink>}
+    { token && <NavLink to='/user'><i className="fa fa-user-circle"></i>{userInfos.userName}</NavLink>}
+    { token &&<NavLink to='/' onClick={e => handlesignOut(e)}>
+    <i className="fa fa-sign-out"></i>
+    Sign Out
+    </NavLink>}
     </div>
-</nav>
+    </nav>
     )
-}
-export default Header
+  }
+  export default Header
