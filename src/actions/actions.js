@@ -10,7 +10,6 @@ export const loginUser = (data) => {
         return axios.post("http://localhost:3001/api/v1/user/login", data).then((res) => {
             if(res.status === 200){
                 dispatch({type: LOGIN, payload: res.data.body.token })
-                console.log(res);
             }
         })
     }

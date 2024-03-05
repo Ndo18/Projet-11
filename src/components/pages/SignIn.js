@@ -20,16 +20,18 @@ function SignIn() {
     const email = form.current[0].value
     const password = form.current[1].value
 
-    if ((email === "tony@stark.com" && password === "password123") ||
-    (email === "steve@rogers.com" && password === "password456")) {
     const postData = {
     email: email,
     password: password,
   }
+
     dispatch(loginUser(postData))
-  } else {
-    setError("Invalid email or password")
-  }
+    .then(() =>{
+
+    })
+    .catch((error) =>{
+      setError("Invalid email or password")
+    })
   }
 
   useEffect(() => {
