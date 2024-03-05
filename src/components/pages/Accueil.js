@@ -1,3 +1,23 @@
+//MES IMAGES
+import iconChat from '../../assets/img/icon-chat.webp'
+import iconMoney from '../../assets/img/icon-money.webp'
+import iconSecurity from '../../assets/img/icon-security.webp'
+import FeatureItem from '../features/FeatureItem'
+
+//ALT IMAGE
+const moneyalt = "Money Icon"
+const chatalt = "Chat Icon"
+const securityalt = "Security Icon"
+
+//MES TITRES
+const featureTitleChat = 'You are our #1 priority'
+const featureTitleMoney = 'More savings means higher rates'
+const featureTitleSecurity = 'Security you can trust'
+
+//MES TEXTES
+const featureTextChat = 'Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.'
+const featureTextMoney = 'The more you save with us, the higher your interest rate will be!'
+const featureTextSecurity = 'We use top of the line encryption to make sure your data and money is always safe.'
 
 function Accueil() {
 return(
@@ -12,38 +32,24 @@ return(
         </section>
       </div>
       <section className="features">
-        <h2 className="sr-only">Features</h2>
-        <div className="feature-item">
-          <img src="./img/icon-chat.webp" alt="Chat Icon" className="feature-icon" />
-          <h3 className="feature-item-title">You are our #1 priority</h3>
-          <p>
-            Need to talk to a representative? You can get in touch through our
-            24/7 chat or through a phone call in less than 5 minutes.
-          </p>
-        </div>
-        <div className="feature-item">
-          <img
-            src="./img/icon-money.webp"
-            alt="Chat Icon"
-            className="feature-icon"
+   <FeatureItem
+            iconUrl={iconChat}
+            title={featureTitleChat}
+            text={featureTextChat}
+            alt={chatalt}
           />
-          <h3 className="feature-item-title">More savings means higher rates</h3>
-          <p>
-            The more you save with us, the higher your interest rate will be!
-          </p>
-        </div>
-        <div className="feature-item">
-          <img
-            src="./img/icon-security.webp"
-            alt="Chat Icon"
-            className="feature-icon"
+          <FeatureItem
+            iconUrl={iconMoney}
+            title={featureTitleMoney}
+            text={featureTextMoney}
+            alt={moneyalt}
           />
-          <h3 className="feature-item-title">Security you can trust</h3>
-          <p>
-            We use top of the line encryption to make sure your data and money
-            is always safe.
-          </p>
-        </div>
+          <FeatureItem
+            iconUrl={iconSecurity}
+            title={featureTitleSecurity}
+            text={featureTextSecurity}
+            alt={securityalt}
+          />
       </section>
     </>     
 )
