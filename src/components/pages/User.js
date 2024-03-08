@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { useState } from "react"
-import { UsernameForm } from "../UsernameFor"
+import { UsernameForm } from "../UsernameForm"
 import FeatureUser from "../features/FeatureUser"
 
 function User (){
