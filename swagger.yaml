@@ -65,11 +65,9 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      produces:
-       - application/json
       responses:
         '200':
-          description: User profile retrieved successfully
+          description: User profile retrieved successully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -94,140 +92,146 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successfully
+          description: User profile retrieved successully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /user/profile/{accountId}/transactions:
     get:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
-      summary: Get Transactions by User
-      description: Retrieve transactions associated with a user by user ID
-      parameters:
-        - name: userId
-          in: query
-          description: ID of the user to retrieve transactions for
-          required: true
-          type: string
-        - name: Authorization
-          in: header
-          description: Token used for authentication and authorization
-          required: true
-          type: string
+        - Transactions module
+      summary: Finds all transactions for the current month
+      description: API for fetching have all the transactions of the current month
+      consumes:
+        - 'application/json'
       produces:
-        - application/json
+        - 'application/json'
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - name: accountId
+          in: path
+          description: Id of the account
+          required: true
+          type: string
+        - name: month
+          in: query
+          description: Month of the transaction (if no value, return the current month)
+          required: false
+          type: string
+          enum:
+            - January
+            - February
+            - March
+            - April
+            - May
+            - June
+            - July
+            - August
+            - September
+            - October
+            - November
+            - December
       responses:
         '200':
-          description: Transactions retrieved successfully
+          description: current month transactions sucessfully loaded
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Transaction'
-        '401':
-          description: Unauthorized access
-        '404':
-          description: User not found or no transactions found
-        '500':
-          description: Internal Server Error
-
-  /transactions:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Create Transaction
-      description: Create a new transaction
-      parameters:
-        - in: body
-          name: body
-          description: Transaction details
-          required: true
-          schema:
-            $ref: '#/definitions/Transaction'
-      produces:
-        - application/json
-      responses:
-        '201':
-          description: Transaction created successfully
-          schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionsMonthResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: User is not authorized
+        '404':
+          description: Account not found
         '500':
           description: Internal Server Error
-  /transactions/{transactionId}:
-    put:
+  /user/profile/{accountId}/transactions/{transactionId}:
+    get:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
-      summary: Update Transaction
-      description: Update details of an existing transaction
+        - Transactions module
+      summary: Get transaction by ID
+      description: API for fetching one transaction details
+      produces:
+        - 'application/json'
       parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - name: accountId
+          in: path
+          description: Id of the account
+          required: true
+          type: string
         - name: transactionId
           in: path
-          description: ID of the transaction to update
+          description: Id of the transaction
           required: true
           type: string
-        - in: body
-          name: body
-          description: Updated transaction details
-          required: true
-          schema:
-            $ref: '#/definitions/Transaction'
-        - name: Authorization
-          in: header
-          description: Token used for authentication and authorization
-          required: true
-          type: string
-      produces:
-        - application/json
       responses:
         '200':
-          description: Transaction updated successfully
+          description: Transaction sucessfully loaded
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '401':
-          description: Unauthorized access
+          description: Access not authorized
         '404':
           description: Transaction not found
         '500':
           description: Internal Server Error
-
-    delete:
+    put:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
-      summary: Delete Transaction
-      description: Delete an existing transaction
+        - Transactions module
+      summary: Update an existing transaction
+      description: API for updating transaction's details
+      produces:
+        - 'application/json'
       parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - name: accountId
+          in: path
+          description: Id of the account
+          required: true
+          type: string
         - name: transactionId
           in: path
-          description: ID of the transaction to delete
+          description: Id of the transaction
           required: true
           type: string
-        - name: Authorization
-          in: header
-          description: Token used for authentication and authorization
+        - in: body
+          name: body
+          description: Update transaction attributes
           required: true
-          type: string
-      produces:
-        - application/json
+          schema:
+            $ref: '#/definitions/TransactionDetail'
       responses:
-        '204':
-          description: Transaction deleted successfully
+        '200':
+          description: Transaction's details sucessfully modified
+          schema:
+            $ref: '#/definitions/TransactionUpdateResponse'
+        '400':
+          description: Invalid Fields
         '401':
-          description: Unauthorized access
+          description: Access not authorized
         '404':
           description: Transaction not found
         '500':
@@ -289,31 +293,115 @@ definitions:
     properties:
       userName:
         type: string
+  TransactionsMonthResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+      message:
+        type: string
+        format: string
+        example: transactions successfully recovered
+      body:
+        type: object
+        properties:
+          transactions:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        example: [
+          {
+            "transactionId": "f8fswj*89fgdj67890pm43657uytr4ezhh2",
+            "accountId": "202303tt99765gtyh6578uiop",
+            "date": "2023-01-07T03:11:57.468+00:00",
+            "description": "Golden Sun Bakery",
+            "amount": 50,
+            "balance": 2187.78,
+            "type": "Electronic",
+            "category": "string",
+            "notes": "string"
+          },
+          {
+            "transactionId": "f8fj*89fgdj67890pm43657uythhhr4e2gty786",
+            "accountId": "2023039ff9765gtyh657gggg8kjo987",
+            "date": "2023-01-09T03:08:57.468+00:00",
+            "description": "Example",
+            "amount": 5900,
+            "balance": 245187.9,
+            "type": "Electronic",
+            "category": "string",
+            "notes": "string"
+          }
+        ]
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: transaction sucessfully loaded
+      schema:
+        $ref: '#/definitions/Transaction'
+  TransactionUpdateResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Transaction's details sucessfully modified
+      schema:
+        $ref: '#/definitions/Transaction'
   Transaction:
     type: object
     properties:
-      id:
+      transactionId:
         type: string
-        description: Transaction ID
-      userId:
+        description: id of the transaction
+        example: "f8fjhh*89fgdj67890pm43657uytr4ez2"
+      accountId:
         type: string
-        description: ID of the user associated with the transaction
-      amount:
-        type: number
-        description: Amount of the transaction
+        description: id of the account
+        example: "20230399765gtyh6578uiop"
       date:
         type: string
-        format: date-time
-        description: Date and time of the transaction
+        format: date
+        description: transaction date
+        example: "2023-01-07T03:11:57.468+00:00"
       description:
         type: string
-        description: Description of the transaction
+        description: transaction description
+        example: Golden Sun Bakery
+      amount:
+        type: integer
+        format: int64
+        description: transaction amount
+        example: 50
+      balance:
+        type: integer
+        format: int64
+        description: account balance after transaction
+        example: 2187.79
+      type:
+        type: string
+        example: Electronic
+        description: transaction type
       category:
         type: string
-        description: Category of the transaction
-  TransactionCategory:
+        description: transaction category
+      notes:
+        type: string
+        description: transaction notes
+  TransactionDetail:
     type: object
     properties:
       category:
         type: string
-        description: New category for the transaction
+        description: transaction category
+      notes:
+        type: string
+        description: transaction notes
